@@ -33,7 +33,10 @@ public void  deleteById(int feedbackId){
 
 //add
 public Review addReview(Review review){
-    return reviewRepo.save(null);
+    return reviewRepo.save(review);
+}
+
+public void save(Review updatReview) {
 }
 
 

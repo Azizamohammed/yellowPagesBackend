@@ -35,7 +35,7 @@ public class CompanyService {
 
      //add 
       public Company addCompany(Company company){
-        return companyRepo.save(null);
+        return companyRepo.save(company);
       }
 
       public List<Company> findAll() {

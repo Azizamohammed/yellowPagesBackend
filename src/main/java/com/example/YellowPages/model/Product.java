@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 public class Product {
     @Id
-    private int proId;
+    private Long proId;
     private String productName;
     // Other product attributes
 

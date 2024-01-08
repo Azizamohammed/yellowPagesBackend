@@ -23,18 +23,24 @@ public class ProductService {
 
       //ById
       public  Optional<Product> getById(int proId){
-        return productRepo.findById(proId);
+        return productRepo.findById((long) proId);
       }
+
+
+      // by name
+       public List<Product> getProductByName( String productName ){
+        return productRepo.findByProductName(productName);
+       }
 
     //delete
     public void deleteById( int proId){
-        productRepo.deleteById(proId);
+        productRepo.deleteById((long) proId);
 
     }
 
     //add
     public Product addProduct(Product product){
-        return productRepo.save(null);
+        return productRepo.save(product);
     }
     public Product save(Product originalProduct) {
         return null;
@@ -42,5 +48,5 @@ public class ProductService {
     public Product updateProduct(int proId, Product product) {
         return null;
     }
-    
+   
 }

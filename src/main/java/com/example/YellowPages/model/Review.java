@@ -14,7 +14,11 @@ public class Review {
     @Id
     public int feedbackId; 
     public String comment;
-    public int rates;
+    public String fullName;
+    public String location;
+    public String email;
+    public int phone;
+    // public int rates;
 
 
     

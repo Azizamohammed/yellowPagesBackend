@@ -5,10 +5,12 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import com.example.YellowPages.service.ReviewService;
 
 @RestController
 @RequestMapping("/Review")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReviewAPI {
 
     public final ReviewService reviewService;
@@ -78,7 +81,21 @@ public class ReviewAPI {
 }
 
 
-
+@PutMapping("/editById/{feedbackId}")
+public ResponseEntity<?> editREview(@PathVariable int feedbackId,@RequestBody Review review){
+    try{
+        Optional<Review> existingREview = reviewService.getById(feedbackId);
+        if(existingREview.isPresent()){
+            Review  updatReview = existingREview.get();
+            reviewService.save(updatReview);
+            return new ResponseEntity<>(updatReview, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>("Review are not found", HttpStatus.NOT_FOUND);
+        }   
+    }catch(Exception exception){
+        return  new ResponseEntity<>("error",HttpStatus.BAD_REQUEST);
+    }
+} 
 
     
 

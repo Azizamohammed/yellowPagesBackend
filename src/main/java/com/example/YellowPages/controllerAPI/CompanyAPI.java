@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.YellowPages.model.Company;
-import com.example.YellowPages.model.Product;
-import com.example.YellowPages.model.Review;
 import com.example.YellowPages.service.CompanyService;
 @RestController
 @RequestMapping("/Company")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CompanyAPI {
 
     public final CompanyService companyService;
@@ -30,20 +30,20 @@ public class CompanyAPI {
     }
 
 
-     @GetMapping("/all")
-    public ResponseEntity<?> getReview(){
-        try{
-            List<Company> companies  = companyService.getAll();
+   @GetMapping("/all")
+   public ResponseEntity<?> getReview(){
+       try{
+      List<Company> companies  = companyService.getAll();
             return new ResponseEntity<>(companies, HttpStatus.OK);
-        }
-        catch(Exception exception){
+       }
+       catch(Exception exception){
             return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
         }    
-    }
+  }
 
 
       @GetMapping("ById{compId}")
-
+ 
     public ResponseEntity<?> getByID(@PathVariable int compId){
         try{
         
@@ -83,7 +83,7 @@ public class CompanyAPI {
 
 
 
-@PutMapping("/editById{compId}")
+@PutMapping("/editById/{compId}")
 public  ResponseEntity<?> editCompany(@PathVariable int compId, @RequestBody Company company){
     try{
         Optional<Company> existingCompany = companyService.getById(compId);
@@ -95,7 +95,7 @@ public  ResponseEntity<?> editCompany(@PathVariable int compId, @RequestBody Com
             return new ResponseEntity<>("product are not found",HttpStatus.OK);
         }
     }catch(Exception exception){
-        return new ResponseEntity<>("error",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("not edited",HttpStatus.BAD_REQUEST);
     }
 }
 
